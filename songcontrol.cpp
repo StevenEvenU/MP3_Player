@@ -1,7 +1,12 @@
 #include "songcontrol.h"
+#include "stdio.h"
+#include "stdlib.h"
 
 SongControl::SongControl(QWidget *parent) : QWidget(parent) {
   setupSongControlPanel();
+  applicationDir.cd(QString("Song_List"));
+  songListDirName = applicationDir.absolutePath();
+  setPlayingSong("Innamorata_di_Notte_Final-3.mp3");
   createLayouts();
   connectSignals();
 }
@@ -80,13 +85,7 @@ void SongControl::setupSongControlPanel() {
 
   musicPlayer = new QMediaPlayer(this);
   QAudioOutput *audioOutput = new QAudioOutput(musicPlayer);
-  QDir applicationDir = QDir::currentPath();
-  applicationDir.cd(QString("Song_List"));
-  QString songListDirName = applicationDir.dirName();
-  QString tempSongChoice = songListDirName.append("/International Love.mp3");
   musicPlayer->setAudioOutput(audioOutput);
-  QUrl tempMusicSource = QUrl::fromLocalFile(tempSongChoice);
-  musicPlayer->setSource(tempMusicSource);
 }
 
 void SongControl::connectSignals() {
@@ -96,6 +95,22 @@ void SongControl::connectSignals() {
           &SongControl::updateMetaData);
   connect(musicPlayer, &QMediaPlayer::positionChanged, this,
           &SongControl::updatePosition);
+}
+
+void SongControl::setPlayingSong(QString newSongFileName) {
+  QUrl newMusicSource;
+  if (songListDirName.right(9) == "Song_List") {
+    songListDirName.append("/" + newSongFileName);
+    newMusicSource = QUrl::fromLocalFile(songListDirName);
+  } else if (songListDirName.right(4) == ".mp4" ||
+             songListDirName.right(4) == ".mp3") {
+    int lastSlashIndex = songListDirName.lastIndexOf("/") + 1;
+    songListDirName =
+        songListDirName.left(lastSlashIndex).append(newSongFileName);
+    ;
+    newMusicSource = QUrl::fromLocalFile(songListDirName);
+  }
+  musicPlayer->setSource(newMusicSource);
 }
 
 SongControl::~SongControl() {}

@@ -13,6 +13,8 @@ qt_add_executable(MP3_Player
     mainwindow.h
     songcontrol.h
     songcontrol.cpp
+    songlist.h
+    songlist.cpp
 )
 
 target_link_libraries(MP3_Player

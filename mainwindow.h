@@ -6,12 +6,12 @@
 
 class MainWindow : public QMainWindow {
 public:
-  MainWindow(QWidget *parent = 0);
+  MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
 
 private:
-  SongControl *songControlWidget;
-  void playNewSongRequest(const QString &data);
+  SongControl *songControlWidget = nullptr;
+  void playNewSongRequest(const QString data);
 };
 
 #endif // MAINWINDOW_H

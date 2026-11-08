@@ -2,10 +2,12 @@
 
 SongList::SongList(QWidget *parent) : QListView(parent) {
   this->setEditTriggers(QAbstractItemView::NoEditTriggers);
-  QDir applicationDir = QDir::currentPath();
   applicationDir.cd("Song_List");
+  songListDirName = applicationDir.absolutePath();
   QStringListModel *songList = new QStringListModel(this);
-  songList->setStringList(applicationDir.entryList(QStringList() << "*.mp3"));
+  // Filtering files for only .mp3 and .mp4
+  songList->setStringList(
+      applicationDir.entryList(QStringList() << "*.mp3" << "*.mp4"));
   this->setModel(songList);
   connect(this, &SongList::doubleClicked, this,
           &SongList::sendSongNameNotification);
@@ -13,7 +15,8 @@ SongList::SongList(QWidget *parent) : QListView(parent) {
 
 void SongList::sendSongNameNotification(QModelIndex indexOfList) {
   if (indexOfList.isValid()) {
-    emit songRequested(indexOfList.data(Qt::DisplayRole).toString());
+    emit songRequested(songListDirName + '/' +
+                       indexOfList.data(Qt::DisplayRole).toString());
   }
 };
 

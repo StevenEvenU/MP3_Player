@@ -18,9 +18,6 @@ private:
   QPushButton *playPauseButton = nullptr;
   QPushButton *forwardButton = nullptr;
   QPushButton *backwardButton = nullptr;
-  QString currentPlayingSongFileName;
-  QDir applicationDir = QDir::currentPath();
-  QString songListDirName;
   QLabel *songTitle = nullptr;
   QLabel *songArtist = nullptr;
   QLabel *songAlbumTitle = nullptr;

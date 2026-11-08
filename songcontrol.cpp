@@ -1,12 +1,7 @@
 #include "songcontrol.h"
-#include "stdio.h"
-#include "stdlib.h"
 
 SongControl::SongControl(QWidget *parent) : QWidget(parent) {
   setupSongControlPanel();
-  applicationDir.cd(QString("Song_List"));
-  songListDirName = applicationDir.absolutePath();
-  setPlayingSong("Innamorata_di_Notte_Final-3.mp3");
   createLayouts();
   connectSignals();
 }
@@ -98,19 +93,9 @@ void SongControl::connectSignals() {
 }
 
 void SongControl::setPlayingSong(QString newSongFileName) {
-  QUrl newMusicSource;
-  if (songListDirName.right(9) == "Song_List") {
-    songListDirName.append("/" + newSongFileName);
-    newMusicSource = QUrl::fromLocalFile(songListDirName);
-  } else if (songListDirName.right(4) == ".mp4" ||
-             songListDirName.right(4) == ".mp3") {
-    int lastSlashIndex = songListDirName.lastIndexOf("/") + 1;
-    songListDirName =
-        songListDirName.left(lastSlashIndex).append(newSongFileName);
-    ;
-    newMusicSource = QUrl::fromLocalFile(songListDirName);
-  }
+  QUrl newMusicSource = QUrl::fromLocalFile(newSongFileName);
   musicPlayer->setSource(newMusicSource);
+  musicPlayer->play();
 }
 
-SongControl::~SongControl() {}
+SongControl::~SongControl() {};

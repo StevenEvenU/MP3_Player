@@ -10,6 +10,10 @@ class SongList : public QListView {
 public:
   SongList(QWidget *parent);
   ~SongList();
+
+private:
+  QDir applicationDir = QDir::currentPath();
+  QString songListDirName;
 signals:
   void songRequested(const QString &songFileName);
 

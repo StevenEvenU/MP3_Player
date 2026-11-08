@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   mainLayout->addWidget(songControlWidget);
 }
 
-void MainWindow::playNewSongRequest(const QString &data) {
+void MainWindow::playNewSongRequest(const QString data) {
   songControlWidget->setPlayingSong(data);
 }
 

@@ -3,3 +3,4 @@ build/
 .DS_Store
 Song_List/*.mp3
 .vscode/
+fma_metadata/

@@ -2,8 +2,13 @@
 #define SONGLIST_H
 
 #include <QDebug>
+#include <QMediaMetaData>
+#include <QMediaPlayer>
 #include <QtCore>
 #include <QtWidgets>
+#include <iostream>
+#include <taglib/fileref.h>
+#include <taglib/tag.h>
 
 class SongList : public QListView {
   Q_OBJECT

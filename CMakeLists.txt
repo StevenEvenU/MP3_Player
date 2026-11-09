@@ -3,6 +3,7 @@ project(MP3_Player LANGUAGES CXX)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets Multimedia)
+find_package(TagLib 2.0 REQUIRED)
 
 qt_standard_project_setup()
 
@@ -22,6 +23,7 @@ target_link_libraries(MP3_Player
         Qt::Core
         Qt::Widgets
         Qt::Multimedia
+        TagLib::tag
 )
 
 install(TARGETS MP3_Player
